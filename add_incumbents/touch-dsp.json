@@ -1,0 +1,16 @@
+{
+  "version" : "0.2",
+  "properties" : {
+
+    "--input-file" : {
+      "type" : "path",
+      "prompt" : "The source CSV data file.",
+      "default" : "/FED_1867_present.csv"
+    },
+    "--output-file" : {
+      "type" : "path",
+      "prompt" : "The output CSV data file.",
+      "default" : "/output.csv"
+    }
+  }
+}
