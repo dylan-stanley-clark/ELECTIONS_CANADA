@@ -14,8 +14,11 @@ def create_argument_parser():
 if __name__ == "__main__":
     parser = create_argument_parser()
     args = parser.parse_args()
+    print("Testing")
 
+    
     with open(args.input_file) as csv_file:
+        csv_file = FED_1867_present.csv
         df = pd.read_csv(csv_file)
         df = df[df['Election_Type'] == "General"]
 
