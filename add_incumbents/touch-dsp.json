@@ -5,7 +5,7 @@
     "--input-file" : {
       "type" : "path",
       "prompt" : "The source CSV data file.",
-      "default" : "/FED_1867_present.csv"
+      "default" : "/output/stats.csv"
     },
     "--output-file" : {
       "type" : "path",
