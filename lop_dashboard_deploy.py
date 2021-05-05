@@ -1,5 +1,5 @@
 import streamlit as st
-import pickle
+import pickle5 as pickle
 
 with open('data_base_parms.pickle', 'rb') as handle:
     data_base_parms = pickle.load(handle)
