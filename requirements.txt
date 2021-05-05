@@ -1,0 +1,2 @@
+python -m pip install pandas            # latest version
+python -m pip install streamlit     # specific version
