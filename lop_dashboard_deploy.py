@@ -44,10 +44,11 @@ def main():
             try:
                 k = 'width="600" height="262"></iframe>'
                 x = district_tables[title][:-len(k)] + """width="800" height="500"></iframe>"""
+                st.markdown(x, unsafe_allow_html=True)
             except:
                 st.write("no table created yet")
 
-        st.markdown(x, unsafe_allow_html=True)
+
 
 if __name__ == "__main__":
     main()
