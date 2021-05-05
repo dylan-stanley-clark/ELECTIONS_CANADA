@@ -4,44 +4,67 @@ import pickle5 as pickle
 with open('data_base_parms.pickle', 'rb') as handle:
     data_base_parms = pickle.load(handle)
 
-with open('district_table_iframes.pickle', 'rb') as handle:
+with open('/Users/dylanclark/Desktop/CED_Code/git/ced/district_table_iframes.pickle', 'rb') as handle:
     district_tables = pickle.load(handle)
 
 def main():
 
-    st.set_page_config(page_title="Verify CED", layout="wide")
+    st.set_page_config(page_title="Verify CED") #, layout="wide")
 
     election = st.sidebar.selectbox("Election Date", data_base_parms["elections"])
     ridings = data_base_parms[election + " ridings"]
 
-    summary = st.sidebar.radio("Page",["Summary","Districts"])
+    page = st.sidebar.radio("Page",["Summary","Districts"])
 
+    # ---Election SUMMARY PAGE----
+    if page == 'Summary':
+        col1, col2 = st.beta_columns(2)
 
-    # ---SUMMARY PAGE----
-    if summary == 'Summary':
-        col1, col2= st.beta_columns(2)
-        # with col1:
-        #     title = election + ", provincial summary"
-        #     x = district_tables[title]#[:-46] + """width="700" height="900"></iframe>"""
-        #     st.markdown(x, unsafe_allow_html=True)
         with col1:
-            title = election+", Active Constituencies"
-            x = district_tables[title]#[:-46] + """width="2000" height="900"></iframe>"""
-            st.markdown(x, unsafe_allow_html=True)
-
+            info = st.radio('Election Info', options=['Districts', 'Incumbents',"Vote Summary", "Conflicts"])
         with col2:
-            title = election + ", Incumbent Elects Seeking Re-Election"
-            st.markdown(district_tables[title] , unsafe_allow_html=True)
+            if info == 'Districts':
+                title = election + ", Active Constituencies"
+                try:
+                    st.markdown(district_tables[title], unsafe_allow_html=True)
+                except:
+
+                    st.write("Chart not created yet")
+
+            if info == 'Incumbents':
+                title = election + ", Incumbent Elects Seeking Re-Election"
+                try:
+                    st.markdown(district_tables[title], unsafe_allow_html=True)
+                except:
+                    st.write("Chart not created yet")
+
+            if info == "Vote Summary":
+                title = election + ", provincial summary"
+                try:
+                    st.markdown(district_tables[title], unsafe_allow_html=True)
+                except:
+                    st.write("Chart not created yet")
+
+            if info == "Conflicts":
+                title = election + ", conflict summary"
+                x = """<iframe title="Conflicts With Canadian Election Database" aria-label="chart" id="datawrapper-chart-JZdUB" src="https://datawrapper.dwcdn.net/JZdUB/2/" scrolling="no" frameborder="0" style="border: none;" width="400" height="315"></iframe>"""
+
+                st.markdown(x, unsafe_allow_html=True)
+
+                x2 = """<iframe title="Existing Conflicts Between LOP &amp;amp; CED" aria-label="table" id="datawrapper-chart-YpJ5o" src="https://datawrapper.dwcdn.net/YpJ5o/1/" scrolling="no" frameborder="0" style="border: none;" width="600" height="720"></iframe>"""
+                st.markdown(x2, unsafe_allow_html=True)
 
     #Contituency level page
     else:
+        col1, col2 = st.beta_columns(2)
+        with col1:
         #"District Table"
-        constituency = st.selectbox("Constituency", ridings, index=len(ridings) - 1)
-        col1, col2, col3 = st.beta_columns(3)
+            constituency = st.selectbox("Constituency", ridings, index=0)
+
         with col2:
             title = constituency + ", " + election + " Results"
-
             try:
+                #Reshape
                 k = 'width="600" height="262"></iframe>'
                 x = district_tables[title][:-len(k)] + """width="800" height="500"></iframe>"""
                 st.markdown(x, unsafe_allow_html=True)
