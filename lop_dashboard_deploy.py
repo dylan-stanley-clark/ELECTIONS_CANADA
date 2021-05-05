@@ -13,8 +13,8 @@ def main():
 
     election = st.sidebar.selectbox("Election Date", data_base_parms["elections"])
     ridings = data_base_parms[election + " ridings"]
-    
-    summary = st.radio("Page",["Summary","Districts"])
+
+    summary = st.sidebar.radio("Page",["Summary","Districts"])
 
 
     # ---SUMMARY PAGE----
@@ -40,8 +40,12 @@ def main():
         col1, col2, col3 = st.beta_columns(3)
         with col2:
             title = constituency + ", " + election + " Results"
-            k ='width="600" height="262"></iframe>'
-            x = district_tables[title][:-len(k)] + """width="800" height="500"></iframe>"""
+
+            try:
+                k = 'width="600" height="262"></iframe>'
+                x = district_tables[title][:-len(k)] + """width="800" height="500"></iframe>"""
+            except:
+                st.write("no table created yet")
 
         st.markdown(x, unsafe_allow_html=True)
 
