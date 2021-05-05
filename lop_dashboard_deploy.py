@@ -4,7 +4,7 @@ import pickle5 as pickle
 with open('data_base_parms.pickle', 'rb') as handle:
     data_base_parms = pickle.load(handle)
 
-with open('/Users/dylanclark/Desktop/CED_Code/git/ced/district_table_iframes.pickle', 'rb') as handle:
+with open('district_table_iframes.pickle', 'rb') as handle:
     district_tables = pickle.load(handle)
 
 def main():
