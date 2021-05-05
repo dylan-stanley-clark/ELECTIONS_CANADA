@@ -1,3 +1,4 @@
-pip install Streamlit
+python -m pip install streamlit
 
-pip install 'pandas<0.21'
+python -m pip install 'pandas<0.21'
+
