@@ -68,7 +68,7 @@ def main():
     # Contituency level page
     else:
 
-        constituency = st.sidebar.selectbox("Constituency", ridings, index=default_index)
+        constituency = st.sidebar.selectbox("Constituency", ridings, index=0)
         title = constituency + ", " + election + " Results"
         try:
             # Reshape
