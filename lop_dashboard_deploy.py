@@ -73,8 +73,10 @@ def main():
 
         session_state = SessionState.get(first_query_params=query_params)
         first_query_params = session_state.first_query_params
-
-        default_index = eval(first_query_params["district"][0]) if "district" in app_state else 0
+        if "district" in app_state:
+            default_index = eval(first_query_params["district"][0])
+        else:
+            default_index = 0
 
 
         col1, col2 = st.beta_columns(2)
