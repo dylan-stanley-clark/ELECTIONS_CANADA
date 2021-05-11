@@ -1,14 +1,6 @@
 import streamlit as st
 import pickle5 as pickle
 import pandas as pd
-import SessionState
-
-
-
-
-# import SessionState
-
-# state = SessionState.get(position=0)
 
 with open('data_base_parms.pickle', 'rb') as handle:
     data_base_parms = pickle.load(handle)
@@ -16,12 +8,9 @@ with open('data_base_parms.pickle', 'rb') as handle:
 with open('district_table_iframes.pickle', 'rb') as handle:
     district_tables = pickle.load(handle)
 
-
 def main():
 
     st.set_page_config(page_title="Verify CED")  # , layout="wide")
-
-
     election = st.sidebar.selectbox("Election Date", data_base_parms["elections"])
     ridings = data_base_parms[election + " ridings"]
 
@@ -77,8 +66,6 @@ def main():
             st.markdown(x, unsafe_allow_html=True)
         except:
             st.write("no table created yet")
-
-
 
 if __name__ == "__main__":
     main()
