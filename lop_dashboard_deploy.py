@@ -73,7 +73,10 @@ def main():
 
         session_state = SessionState.get(first_query_params=query_params)
         first_query_params = session_state.first_query_params
-        default_index = eval(first_query_params["district"][0]) if "district" in app_state else 0
+        try:
+            default_index = eval(first_query_params["district"][0]) if "district" in app_state else 0
+        except:
+            default_index = 0
 
         col1, col2 = st.beta_columns(2)
         with col2:
@@ -82,10 +85,6 @@ def main():
         if button:
             default_index = int(app_state["district"][0])+1
         constituency = st.selectbox("Constituency", ridings, index=default_index)
-
-
-
-
 
         app_state["district"] = ridings.index(constituency)
         st.experimental_set_query_params(**app_state)
