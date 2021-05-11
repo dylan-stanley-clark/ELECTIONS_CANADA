@@ -67,31 +67,9 @@ def main():
 
     # Contituency level page
     else:
-        #Give ability to navigate with buttons etc
-        query_params = st.experimental_get_query_params()
-        app_state = st.experimental_get_query_params()
 
-        session_state = SessionState.get(first_query_params=query_params)
-        first_query_params = session_state.first_query_params
-        if "district" in app_state:
-            default_index = eval(first_query_params["district"][0])
-        else:
-            default_index = 0
-
-
-        col1, col2 = st.beta_columns(2)
-        with col2:
-            button = st.button("Next District")
-
-        if button:
-            default_index = int(app_state["district"][0])+1
-        constituency = st.selectbox("Constituency", ridings, index=default_index)
-
-        app_state["district"] = ridings.index(constituency)
-        st.experimental_set_query_params(**app_state)
-
-        constituency2 = ridings[app_state["district"]]
-        title = constituency2 + ", " + election + " Results"
+        constituency = st.sidebar.selectbox("Constituency", ridings, index=default_index)
+        title = constituency + ", " + election + " Results"
         try:
             # Reshape
             k = 'width="600" height="262"></iframe>'
