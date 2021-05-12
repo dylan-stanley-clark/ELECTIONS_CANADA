@@ -5,7 +5,7 @@ import pandas as pd
 with open('data_base_parms.pickle', 'rb') as handle:
     data_base_parms = pickle.load(handle)
 
-with open('district_table_iframes.pickle', 'rb') as handle:
+with open('chart_iframes.pickle', 'rb') as handle:
     district_tables = pickle.load(handle)
 
 def main():
