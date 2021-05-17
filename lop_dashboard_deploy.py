@@ -9,12 +9,11 @@ with open('data_base_parms.pickle', 'rb') as handle:
 with open('chart_iframes.pickle', 'rb') as handle:
     district_tables = pickle.load(handle)
 
-def main(data):
+def main():
 
     st.set_page_config(page_title="Verify CED")  # , layout="wide")
     election = st.sidebar.selectbox("Election Date", data_base_parms["elections"])
     ridings = data_base_parms[election + " ridings"]
-
     page = st.sidebar.radio("Page", ["Summary", "Districts"])
 
     # ---Election SUMMARY PAGE----
@@ -48,7 +47,6 @@ def main(data):
 
     # Contituency level page
     else:
-
         constituency = st.sidebar.selectbox("Constituency", ridings, index=0)
         title = constituency + ", " + election + " Results"
         try:
@@ -58,14 +56,13 @@ def main(data):
             st.markdown(x, unsafe_allow_html=True)
         except:
 
-            st.write(data[election+constituency])
+            st.write(load_data(election+constituency))
 
 @st.cache
-def load_data():
+def load_data(uid):
     with open('chart_dataframes.pickle', 'rb') as handle:
         district_dfs = pickle.load(handle)
-    return district_dfs
+    return district_dfs[uid]
 
 if __name__ == "__main__":
-    data = load_data()
-    main(data)
+    main()
