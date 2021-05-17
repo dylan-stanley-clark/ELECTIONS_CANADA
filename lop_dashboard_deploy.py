@@ -2,11 +2,15 @@ import streamlit as st
 import pickle5 as pickle
 import pandas as pd
 
+#Load dictionary of
 with open('data_base_parms.pickle', 'rb') as handle:
     data_base_parms = pickle.load(handle)
-
+#load dictionary of chart iframes
 with open('chart_iframes.pickle', 'rb') as handle:
     district_tables = pickle.load(handle)
+
+with open('chart_dataframes.pickle', 'rb') as handle:
+    district_dfs = pickle.load(handle)
 
 def main():
 
@@ -43,7 +47,7 @@ def main():
                 try:
                     st.markdown(district_tables[title], unsafe_allow_html=True)
                 except:
-                    st.write("Chart not created yet")
+                    st.write(district_dfs[election+district])
 
     # Contituency level page
     else:
