@@ -9,8 +9,6 @@ with open('data_base_parms.pickle', 'rb') as handle:
 with open('chart_iframes.pickle', 'rb') as handle:
     district_tables = pickle.load(handle)
 
-
-
 def main(district_dfs):
 
     st.set_page_config(page_title="Verify CED")  # , layout="wide")
@@ -59,7 +57,7 @@ def main(district_dfs):
             x = district_tables[title][:-len(k)] + """width="800" height="500"></iframe>"""
             st.markdown(x, unsafe_allow_html=True)
         except:
-            st.write("no table created yet")
+            st.write(district_dfs[constituency+election])
 
 if __name__ == "__main__":
     with open('chart_dataframes.pickle', 'rb') as handle:
