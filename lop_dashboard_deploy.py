@@ -57,7 +57,7 @@ def main(district_dfs):
             x = district_tables[title][:-len(k)] + """width="800" height="500"></iframe>"""
             st.markdown(x, unsafe_allow_html=True)
         except:
-            st.write(district_dfs[constituency+election])
+            st.write(district_dfs[election+constituency])
 
 if __name__ == "__main__":
     with open('chart_dataframes.pickle', 'rb') as handle:
