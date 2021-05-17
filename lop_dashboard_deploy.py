@@ -9,10 +9,9 @@ with open('data_base_parms.pickle', 'rb') as handle:
 with open('chart_iframes.pickle', 'rb') as handle:
     district_tables = pickle.load(handle)
 
-with open('chart_dataframes.pickle', 'rb') as handle:
-    district_dfs = pickle.load(handle)
 
-def main():
+
+def main(district_dfs):
 
     st.set_page_config(page_title="Verify CED")  # , layout="wide")
     election = st.sidebar.selectbox("Election Date", data_base_parms["elections"])
@@ -63,4 +62,7 @@ def main():
             st.write("no table created yet")
 
 if __name__ == "__main__":
-    main()
+    with open('chart_dataframes.pickle', 'rb') as handle:
+        district_dfs = pickle.load(handle)
+
+    main(district_dfs)
