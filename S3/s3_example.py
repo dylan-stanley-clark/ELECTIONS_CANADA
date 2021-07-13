@@ -15,8 +15,8 @@ fs = s3fs.S3FileSystem(anon=False)
 # Uses st.cache to only rerun when the query changes or after 10 min.
 @st.cache(ttl=600)
 def read_file(filename):
-    df = pd.read_csv(filename,
-                       storage_options={"anon": True})
+    with fs.open(filename) as f:
+        df = pd.read_csv(filename)
     return df
 # def read_file(filename):
 #     with fs.open(filename) as f:
