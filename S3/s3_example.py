@@ -21,7 +21,7 @@ content = read_file("s3://polemics/roles.csv")
 #     df = pd.read_csv("polemics/roles.csv")
 # Print results.
 for line in content.strip().split("\n"):
-    name, pet = line.split(",")
-    st.write(f"{name} has a :{pet}:")
+    x = line.split(",")
+    st.write(f"{x[0]} has a :{x[1]}:")
 
 # st.write(df)
