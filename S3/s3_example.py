@@ -23,6 +23,6 @@ st.write(df_cabinet)
 save = st.button("save")
 if save:
     s3_resource = boto3.resource('s3')
-    s3_resource.Object('polemics', 'cabinet.csv').put(Body=df_cabinet.getvalue())
+    s3_resource.Object('polemics', 'cabinet.csv').put(Body=df_cabinet.to_csv())
     #df.to_csv('s3://polemics/cabinet.csv', index=False)
     st.balloons()
