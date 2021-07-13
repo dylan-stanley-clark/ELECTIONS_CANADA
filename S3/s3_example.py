@@ -15,7 +15,7 @@ fs = s3fs.S3FileSystem(anon=False)
 # Uses st.cache to only rerun when the query changes or after 10 min.
 @st.cache(ttl=600)
 def read_file(filename):
-    df = pd.read_excel(filename,
+    df = pd.read_csv(filename,
                        storage_options={"anon": True})
     return df
 # def read_file(filename):
@@ -29,12 +29,13 @@ df_cabinet = df[df['Role']== "Minister"] #excludes PM
 
 save = st.button("save")
 if save:
-    df_cabinet.to_csv(
-        f"s3://{AWS_S3_BUCKET}/cabinet.csv",
-        index=False,
-        storage_options={
-            "key": AWS_ACCESS_KEY_ID,
-            "secret": AWS_SECRET_ACCESS_KEY
-            #"token": AWS_SESSION_TOKEN,
-        },
-    )
+    st.write(df_cabinet)
+    # df_cabinet.to_csv(
+    #     f"s3://{AWS_S3_BUCKET}/cabinet.csv",
+    #     index=False,
+    #     storage_options={
+    #         "key": AWS_ACCESS_KEY_ID,
+    #         "secret": AWS_SECRET_ACCESS_KEY
+    #         #"token": AWS_SESSION_TOKEN,
+    #     },
+    # )
