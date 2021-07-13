@@ -15,13 +15,15 @@ def read_file(filename):
         return f.read().decode("utf-8")
 
 content = read_file("s3://polemics/roles.csv")
-# try:
-#     df = pd.read_csv(content)
-# except:
-#     df = pd.read_csv("polemics/roles.csv")
-# Print results.
-for line in content.strip().split("\n"):
-    x = line.split(",")
-    st.write(f"{x[0]} has a :{x[1]}:")
+try:
+    df = pd.read_csv(content)
+except:
+    df = pd.read_csv("polemics/roles.csv")
+st.write(df)
 
-# st.write(df)
+# # Print results.
+# for line in content.strip().split("\n"):
+#     x = line.split(",")
+#     st.write(f"{x[0]} has a :{x[1]}:")
+
+#
