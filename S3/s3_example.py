@@ -2,6 +2,11 @@ import streamlit as st
 import s3fs
 import os
 import pandas as pd
+import boto3
+AWS_S3_BUCKET = "polemics"
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+
 
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
@@ -12,18 +17,20 @@ fs = s3fs.S3FileSystem(anon=False)
 @st.cache(ttl=600)
 def read_file(filename):
     with fs.open(filename) as f:
-        return f.read()#f.read().decode("utf-8")
+        return pd.read_csv(f)
 
-content = read_file("s3://polemics/roles.csv")
-try:
-    df = pd.read_csv(content)
-except:
-    df = pd.read_csv("s3://polemics/roles.csv")
-st.write(df)
+df = read_file('3://polemics/roles.csv')
+df = df[(df['parliament'] == 43) & (df['status'] == 'active')] # lets just look at 43
+df_cabinet = df[df['Role']== "Minister"] #excludes PM
 
-# # Print results.
-# for line in content.strip().split("\n"):
-#     x = line.split(",")
-#     st.write(f"{x[0]} has a :{x[1]}:")
-
-#
+save = st.button("save")
+if save:
+    df_cabinet.to_csv(
+        f"s3://{AWS_S3_BUCKET}/cabinet.csv",
+        index=False,
+        storage_options={
+            "key": AWS_ACCESS_KEY_ID,
+            "secret": AWS_SECRET_ACCESS_KEY
+            #"token": AWS_SESSION_TOKEN,
+        },
+    )
