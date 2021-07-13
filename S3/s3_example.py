@@ -23,6 +23,6 @@ st.write(df_cabinet)
 save = st.button("save")
 if save:
     #df.to_csv("s3://polemics/test.csv")
-    fs.open('polemics/lop-cabinet', 'wb') as f:
+    with fs.open('polemics/lop-cabinet', 'wb') as f:
         f.write(df_cabinet)
     st.balloons()
