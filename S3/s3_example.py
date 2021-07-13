@@ -21,7 +21,7 @@ def read_file(filename):
          df = pd.read_csv(f)
     return df
 
-df = from_s3("s3://polemics/roles.csv")
+df = read_file("s3://polemics/roles.csv")
 df = df[(df['parliament'] == 43) & (df['status'] == 'active')] # lets just look at 43
 df_cabinet = df[df['Role']== "Minister"] #excludes PM
 st.write(df)
