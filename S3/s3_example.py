@@ -15,13 +15,13 @@ def read_file(filename):
         return f.read().decode("utf-8")
 
 content = read_file("polemics/roles.csv")
-try:
-    df = pd.read_csv(content)
-except:
-    df = pd.read_csv("polemics/roles.csv")
+# try:
+#     df = pd.read_csv(content)
+# except:
+#     df = pd.read_csv("polemics/roles.csv")
 # Print results.
 for line in content.strip().split("\n"):
     name, pet = line.split(",")
     st.write(f"{name} has a :{pet}:")
 
-st.write(df)
+# st.write(df)
