@@ -9,12 +9,12 @@ fs = s3fs.S3FileSystem(anon=False)
 
 # Retrieve file contents.
 # Uses st.cache to only rerun when the query changes or after 10 min.
-#@st.cache(ttl=600)
+@st.cache(ttl=600)
 def read_file(filename):
     with fs.open(filename) as f:
         return f.read().decode("utf-8")
 
-content = read_file("polemics/roles.csv")
+content = read_file("s3://polemics/roles.csv")
 # try:
 #     df = pd.read_csv(content)
 # except:
