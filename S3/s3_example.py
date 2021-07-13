@@ -22,7 +22,7 @@ st.write(df_cabinet)
 
 save = st.button("save")
 if save:
-    with fs.open('polemics/cabinet.csv','w') as f:
+    with fs.open('s3://polemics/cabinet.csv','w') as f:
         df.to_csv(f)
     # df_cabinet.to_csv("s3://polemics/test.csv")
 
