@@ -15,10 +15,15 @@ fs = s3fs.S3FileSystem(anon=False)
 # Uses st.cache to only rerun when the query changes or after 10 min.
 @st.cache(ttl=600)
 def read_file(filename):
-    with fs.open(filename) as f:
-        return pd.read_csv(f)
+    df = pd.read_excel(filename,
+                       storage_options={"anon": True})
+    return df
+# def read_file(filename):
+#     with fs.open(filename) as f:
+#         return pd.read_csv(f)
 
 df = read_file('s3://polemics/roles.csv')
+
 df = df[(df['parliament'] == 43) & (df['status'] == 'active')] # lets just look at 43
 df_cabinet = df[df['Role']== "Minister"] #excludes PM
 
